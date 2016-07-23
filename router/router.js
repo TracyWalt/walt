@@ -5,10 +5,15 @@
 var express = require('express');
 var router = express.Router();
 var adminController = require('../controller/admin/admin');
+var indexController = require('../controller/index');
+var articleController = require('../controller/article');
 
-router.get('/',function(req,res){
-    res.send('首页');
-});
+//首页
+router.get('/',indexController.index);
+//列表页
+router.get('/list',articleController.list);
+//详情页
+router.get('/article',articleController.article);
 
 //admin router
 router.get('/admin',adminController.index); //后台管理首页
