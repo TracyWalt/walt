@@ -2,8 +2,8 @@
  * Author: walt
  * Time: 2016/7/23
  */
-var User = require('../../models/admin/user');
-
+var User = require('../../models/admin/user');  //用户数据模型
+var Article = require('../../models/admin/article');  //文章数据模型
 //后台管理登录页
 exports.login = function(req,res){
     res.render('admin/login',{});
@@ -58,5 +58,25 @@ exports.singin = function(req,res){
 
     }else{
         res.render('admin/login',{});
+    }
+}
+
+//添加文章
+exports.add = function(req,res){
+    var title = req.body.title;
+    var content = req.body.content;
+    if(title && content){
+        var articleData = {title:title,content:content};
+        var article = new Article(articleData);
+        article.save(function(err){
+            if(err){
+                console.log('添加文章失败');
+            }else{
+                console.log('添加文章成功');
+                res.redirect('/admin');
+            }
+        });
+    }else{
+        console.log('标题或内容不能为空');
     }
 }

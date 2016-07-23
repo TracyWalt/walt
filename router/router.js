@@ -11,8 +11,9 @@ router.get('/',function(req,res){
 });
 
 //admin router
-router.get('/admin',adminController.index);
-router.get('/admin/login',adminController.login);
-router.post('/admin/singin',adminController.singin);
+router.get('/admin',adminController.index); //后台管理首页
+router.get('/admin/login',adminController.login); //登录页
+router.post('/admin/singin',adminController.singin); //登录校验
+router.post('/admin/add',adminController.add);  //添加文章
 
 module.exports = router;

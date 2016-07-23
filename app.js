@@ -8,6 +8,8 @@ var router = require('./router/router'); //路由
 var ejs = require('ejs-mate'); // 模版引擎
 var session = require('express-session');   //session
 var bodyParser = require('body-parser');  //处理表单提交的数据
+var mongoose = require("mongoose"); //数据库操作
+var db = mongoose.connection;
 //var multipart = require('connect-multiparty'); //处理JSON数据
 //var multipartMiddleware = multipart();
 
@@ -31,6 +33,15 @@ app.use(bodyParser.urlencoded({
 
 //路由
 app.use(router);
+
+//连接数据库
+mongoose.connect('mongodb://localhost:27017/walt'); // 连接字符串格式为mongodb://主机/数据库名
+// 数据库连接后，可以对open和error事件指定监听函数。
+db.on('error', console.error);
+db.once('open', function() {
+    console.log('数据库连接成功...');
+    //在这里创建你的模式和模型
+});
 
 //端口
 app.listen(8000,function(){
