@@ -1,13 +1,11 @@
 # walt
 
 ### 安装mongodb数据库
-```
+
   1、官网 [下载](https://www.mongodb.com/) 并安装
 
   2、如何 [配置](http://www.cnblogs.com/snake-hand/p/3172376.html) 、 [安装启动](http://www.cnblogs.com/lzrabbit/p/3682510.html)
 
-```
-[简书](http://jianshu.io)
 
 ### 安装依赖
 ```
