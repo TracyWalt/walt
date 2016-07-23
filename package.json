@@ -1,0 +1,42 @@
+{
+  "name": "walt",
+  "version": "1.0.0",
+  "description": "walt site",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TracyWalt/walt.git"
+  },
+  "keywords": [
+    "walt"
+  ],
+  "author": "walt",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/TracyWalt/walt/issues"
+  },
+  "homepage": "https://github.com/TracyWalt/walt#readme",
+  "dependencies": {
+    "body-parser": "^1.15.2",
+    "connect-multiparty": "^2.0.0",
+    "ejs-mate": "2.3.0",
+    "express": "^4.14.0",
+    "express-session": "^1.14.0",
+    "gulp": "^3.9.1",
+    "mongoose": "^4.5.5",
+    "nodemon": "^1.9.2"
+  },
+  "devDependencies": {
+    "body-parser": "^1.15.2",
+    "connect-multiparty": "^2.0.0",
+    "ejs-mate": "2.3.0",
+    "express": "^4.14.0",
+    "express-session": "^1.14.0",
+    "gulp": "^3.9.1",
+    "mongoose": "^4.5.5",
+    "nodemon": "^1.9.2"
+  }
+}
