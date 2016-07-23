@@ -3,7 +3,7 @@
  * Time: 2016/7/23
  */
 var User = require('../../models/admin/user');  //用户数据模型
-var Article = require('../../models/admin/article');  //文章数据模型
+var Article = require('../../models/article');  //文章数据模型
 //后台管理登录页
 exports.login = function(req,res){
     res.render('admin/login',{});

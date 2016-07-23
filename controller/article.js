@@ -2,7 +2,7 @@
  * Author: walt
  * Time: 2016/7/23
  */
-var Article = require('../models/admin/article');  //文章数据模型
+var Article = require('../models/article');  //文章数据模型
 
 //列表
 exports.list = function(req,res){
