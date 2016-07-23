@@ -20,3 +20,34 @@
 ```
   nodemon app.js
 ```
+
+###目录结构
+
+walt
+    controller          //控制器
+        admin           //后台管理控制器
+            admin.js
+        index.js
+        article.js
+
+    models              //数据模型
+
+    public              //公用静态资源
+        js
+        css
+        images
+
+    router              //路由
+        router.js
+
+    views               //模版文件
+        admin           //后台管理模版
+        index.html
+
+    app.js
+
+    package.json
+
+    README.md
+
+    .gitignore
