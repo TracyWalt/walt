@@ -24,6 +24,7 @@
 ###目录结构
 
 walt
+
     controller          //控制器
         admin           //后台管理控制器
             admin.js
