@@ -2,7 +2,7 @@
  * Author: walt
  * Time: 2016/7/23
  */
-var User = require('../../models/admin/user');  //用户数据模型
+var Admin = require('../../models/admin/admin');  //用户数据模型
 var Article = require('../../models/article');  //文章数据模型
 //后台管理登录页
 exports.login = function(req,res){
@@ -27,11 +27,11 @@ exports.singin = function(req,res){
     if(username && password){
         var userdata = {username:username,password:password};
         //先去查找数据库有没有注册过管理员，有则判断用户名密码是否正确，没有就直接注册一个新用户
-        User.find({},function(err,docs){
+        Admin.find({},function(err,docs){
 
             if(docs.length){
                 //已经注册过管理员帐号
-                User.find(userdata,function(err,docs){
+                Admin.find(userdata,function(err,docs){
                     if(docs.length){  //登录成功
                         req.session.admin = username;
                         res.redirect('/admin');
@@ -41,8 +41,8 @@ exports.singin = function(req,res){
                 });
             }else{
                 //注册新管理帐号
-                var user = new User(userdata);
-                user.save(function(err){
+                var admin = new Admin(userdata);
+                admin.save(function(err){
                     if(err){
                         console.log('注册失败');
                     }else{

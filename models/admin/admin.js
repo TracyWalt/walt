@@ -10,7 +10,7 @@ var userSchema = new Schema({
     password : String
 })
 
-var User = mongoose.model('User', userSchema);
+var Admin = mongoose.model('Admin', userSchema);
 
 //倒出模型
-module.exports = User;
+module.exports = Admin;
