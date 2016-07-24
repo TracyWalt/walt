@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>学生分数管理</title>
+		<style>
+			*{margin:0; padding:0;}
+			#score{width:800px; border:1px solid #ccc; padding:20px; margin:20px auto;}
+			.title{text-align: center; font-size:18px; margin-bottom:20px;}
+			#addBtn{border:1px solid #ccc; border-radius:3px; padding:5px 10px; cursor: pointer;}
+			.list{margin-top:20px; width:100%; text-align: center; border-collapse:collapse;border-spacing:0;}
+			.list td{border:1px solid #ccc; padding:10px 0;}
+			.list td input{border:1px solid #fff; width:60px; background: #fff; color:#333; height:25px; line-height: 25px; text-align: center;}
+			.list tr.edit input{border:1px solid #ccc;}
+			.tips{font-size:18px; font-weight:bold; margin-top:20px;}
+			#dialog{position:fixed; display:none; left:0; top:0; width:100%; height:100%;}
+			#dialog .mask{background:#000; opacity: 0.5; filter:alpha(opacity=50); position:absolute; left:0; top:0; width:100%;height:100%;}
+			#dialog .content{width:300px; height:200px; padding:10px; border-radius:5px; position:absolute; left:50%; top:100px; margin-left:-150px; background:#fff;}
+			#dialog input{height:100px; height:30px; line-height: 30px; border:1px solid #ccc; margin:5px;}
+			#dialog .dialog-btn span{display:block; float:left; cursor: pointer; border:1px solid #ccc; border-radius:3px; padding:5px 10px; margin:20px;}
+		</style>
+	</head>
+	<body>
+		<div id="score">
+			<h2 class="title">学生分数管理</h2>
+			<span id="addBtn">添加学生</span>
+			<table class="list">
+				<tr>
+					<td>姓名</td>
+					<td>语文</td>
+					<td>数学</td>
+					<td>平均分</td>
+					<td>总分</td>
+				</tr>
+				<!--<tr>
+					<td>张三</td>
+					<td><input type="text" value="100" rel="1" disabled="disabled" /></td>
+					<td><input type="text" value="100" rel="2" disabled="disabled" /></td>
+					<td>100</td>
+					<td>200</td>
+				</tr>-->
+			</table>
+			<p class="tips"></p>
+			<div id="dialog">
+				<div class="mask"></div>
+				<div class="content">
+					姓名：<input type="text" /><br />
+					语文：<input type="text" /><br />
+					数学：<input type="text" /><br />
+					<div class="dialog-btn">
+						<span>确定</span>
+						<span>取消</span>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<script>
+			window.onload=function(){
+				
+				var oScore = $('score');
+				var oDialog = $('dialog');
+				var oTable = oScore.getElementsByTagName('table')[0];  //表格
+				var addStudentBtn = $('addBtn');  //添加学生按钮
+				var comfirmBtn = oDialog.getElementsByTagName('span')[0];  //确认添加
+				var cancelBtn = oDialog.getElementsByTagName('span')[1];  //取消添加
+				var tips = oScore.getElementsByTagName('p')[0];  //提示元素
+				
+				
+				totalFn(); //初始化
+				
+				//添加学生
+				addStudentBtn.onclick=function(){
+					oDialog.style.display='block';
+				}
+				
+				//关闭
+				cancelBtn.onclick=function(){
+					oDialog.style.display='none';
+				}
+				
+				//确认添加学生
+				comfirmBtn.onclick=function(){
+					var iInputs = oDialog.getElementsByTagName('input');
+					var tds = '';
+					var isEmpty = false;
+					var total = 0;
+					for(var i=0; i<iInputs.length;i++){
+						if(iInputs[i].value){
+							if(i>0){
+								total += parseFloat(iInputs[i].value);
+								tds += '<td><input type="text" value="'+iInputs[i].value+'" rel="'+i+'" disabled="disabled" /></td>';
+							}else{
+								tds += '<td>'+iInputs[i].value+'</td>';
+							}
+						}else{
+							isEmpty = true;
+							break;
+						}
+					}
+					if(isEmpty){
+						alert('请填写数据');
+						return;
+					}
+					tds += '<td>'+(total/2)+'</td><td>'+total+'</td>';
+					
+					oTable.innerHTML += '<tr>'+tds+'</tr>';
+					
+					//总计
+					totalFn();
+					
+					
+					oDialog.style.display='none';
+				}
+				
+				function totalFn(){
+					var iNumInputs = oTable.getElementsByTagName('input');
+					var chineseNum = 0;
+					var mathNum = 0;
+					var presonNum = 0;
+					for(var i=0;i<iNumInputs.length;i++){
+						if(iNumInputs[i].getAttribute('rel')==1){ //语文
+							chineseNum += parseFloat(iNumInputs[i].value || 0);
+							presonNum ++;
+						}else{ //数学
+							mathNum += parseFloat(iNumInputs[i].value || 0);	
+						}
+						
+					}
+					var str = '人数：'+presonNum+'，语文平均分：'+((chineseNum/presonNum)||0)+'；数学平均分：'+((mathNum/presonNum)||0)+'，总平均分：'+((chineseNum+mathNum)/2);
+					tips.innerHTML = str;
+				}
+				
+				//编辑
+				bind(oTable,'td','dblclick',function(e){
+					this.parentNode.className='edit';
+					var iInputs = oTable.getElementsByTagName('input');
+					for(var i=0;i<iInputs.length;i++){
+						iInputs[i].removeAttribute('disabled');
+					}
+				});
+				document.onclick=function(){			
+					var iTrs = oTable.getElementsByTagName('tr');
+					for(var i=0;i<iTrs.length;i++){
+						if(iTrs[i].className=='edit'){
+							var inp = iTrs[i].getElementsByTagName('input');
+							var chineseNum = parseFloat(inp[0].value);
+							var mathNum = parseFloat(inp[1].value);
+							var name = iTrs[i].getElementsByTagName('td')[0].innerHTML;
+							iTrs[i].innerHTML='<tr class="">'+
+											'<td>'+name+'</td>'+
+											'<td><input type="text" value="'+chineseNum+'" rel="1" disabled=""></td>'+
+											'<td><input type="text" value="'+mathNum+'" rel="2" disabled=""></td>'+
+											'<td>'+((chineseNum+mathNum)/2)+'</td>'+
+											'<td>'+(chineseNum+mathNum)+'</td>'+
+										'</tr>';
+							iTrs[i].className = '';
+						}				
+					}
+
+					totalFn();
+				}
+				
+				//阻止冒泡
+				bind(oTable,'input','click',function(e){
+					e.stopPropagation();
+				});
+
+							
+				//id获取元素
+				function $(obj){
+					return document.getElementById(obj);
+				}
+				//事件代理			
+				function bind(oParent,target,ev,fn){
+					oParent['on'+ev]=function(e){
+						var _target = false;
+						var _this = null;
+						var i = 0;
+						var ev = e;
+						if(e.target.tagName.toLocaleLowerCase()==target){
+							_target = true;
+							_this = e.target;
+						}
+//						else{
+//							while(e.target.parentNode){
+//								console.log(e.target.parentNode.tagName.toLocaleLowerCase());
+//								i++;
+//								if(i>10){
+//									console.log(e.target.parentNode.tagName.toLocaleLowerCase());
+//									break;
+//								}
+//								
+//								if(e.target.parentNode.tagName.toLocaleLowerCase()==target){
+//									_target = true;
+//									_this = e.target.parentNode;
+//									break;
+//								}
+//								e.target.parentNode = e.target.parentNode.parentNode;
+//							}
+//						}
+						if(_target){
+							fn && typeof fn ==='function' && fn.call(_this,ev);
+						}
+					}
+				}
+			}
+		</script>
+	</body>
+</html>
