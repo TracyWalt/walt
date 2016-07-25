@@ -173,35 +173,16 @@
 				}
 				//事件代理			
 				function bind(oParent,target,ev,fn){
-					oParent['on'+ev]=function(e){
-						var _target = false;
-						var _this = null;
-						var i = 0;
-						var ev = e;
-						if(e.target.tagName.toLocaleLowerCase()==target){
-							_target = true;
-							_this = e.target;
-						}
-//						else{
-//							while(e.target.parentNode){
-//								console.log(e.target.parentNode.tagName.toLocaleLowerCase());
-//								i++;
-//								if(i>10){
-//									console.log(e.target.parentNode.tagName.toLocaleLowerCase());
-//									break;
-//								}
-//								
-//								if(e.target.parentNode.tagName.toLocaleLowerCase()==target){
-//									_target = true;
-//									_this = e.target.parentNode;
-//									break;
-//								}
-//								e.target.parentNode = e.target.parentNode.parentNode;
-//							}
-//						}
-						if(_target){
-							fn && typeof fn ==='function' && fn.call(_this,ev);
-						}
+					oParent['on'+ev]=function(ev){
+						var ev = ev || window.event;
+						var oEle = ev.target || ev.srcElement;
+			            while (oEle) {
+							if(oEle.tagName.toLocaleLowerCase() == target){
+								fn && typeof fn === 'function' && fn.call(oEle,ev);
+								break;
+							}
+			                oEle = oEle.parentNode;
+			            }
 					}
 				}
 			}
