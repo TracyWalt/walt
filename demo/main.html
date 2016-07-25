@@ -176,7 +176,7 @@
 					oParent['on'+ev]=function(ev){
 						var ev = ev || window.event;
 						var oEle = ev.target || ev.srcElement;
-			            while (oEle) {
+			            while (oEle.tagName) {
 							if(oEle.tagName.toLocaleLowerCase() == target){
 								fn && typeof fn === 'function' && fn.call(oEle,ev);
 								break;
