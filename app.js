@@ -10,8 +10,7 @@ var session = require('express-session');   //session
 var bodyParser = require('body-parser');  //处理表单提交的数据
 var mongoose = require("mongoose"); //数据库操作
 var db = mongoose.connection;
-//var multipart = require('connect-multiparty'); //处理JSON数据
-//var multipartMiddleware = multipart();
+
 
 //设置模版路径和模版引擎
 app.set('views', './views');
@@ -44,6 +43,6 @@ db.once('open', function() {
 });
 
 //端口
-app.listen(8000,function(){
+app.listen(3000,function(){
     console.log('server start...');
 });
