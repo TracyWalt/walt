@@ -10,7 +10,7 @@ var session = require('express-session');   //session
 var bodyParser = require('body-parser');  //处理表单提交的数据
 var mongoose = require("mongoose"); //数据库操作
 var db = mongoose.connection;
-
+var path = require('path');
 
 //设置模版路径和模版引擎
 app.set('views', './views');
@@ -29,6 +29,10 @@ app.use(bodyParser.json({limit: '1mb'}));  //这里指定参数使用 json 格�
 app.use(bodyParser.urlencoded({
     extended: true
 }));
+
+// 静态文件目录
+var staticDir = path.join(__dirname, 'public');
+app.use('/public', express.static(staticDir));
 
 //路由
 app.use(router);
