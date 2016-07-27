@@ -4,8 +4,6 @@
  */
 var express = require('express');
 var router = express.Router();
-var multipart = require('connect-multiparty'); //文件上传
-var multipartMiddleware = multipart({uploadDir:'./upload'});
 var adminController = require('../controller/admin/admin');
 var indexController = require('../controller/index');
 var articleController = require('../controller/article');
@@ -25,6 +23,6 @@ router.post('/admin/add',adminController.add);  //添加文章
 
 //文件上传
 router.get('/upload',uploadController.link);
-router.post('/upload',multipartMiddleware,uploadController.upload);
+router.post('/upload',uploadController.upload);
 
 module.exports = router;
