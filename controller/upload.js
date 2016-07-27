@@ -13,7 +13,7 @@ var storage = multer.diskStorage({
     // },
     destination: './upload',   //传递字符串会自动创建目录
     filename: function (req, file, cb){
-        cb(null, file.originalname)
+        cb(null, file.fieldname + '-' + Date.now());
     }
 });
 
@@ -35,17 +35,20 @@ exports.link = function(req,res){
 exports.upload = function(req,res){
 
     upload(req, res, function (err) {
+
         console.log('-------------file----------------------');
+
+        //文件信息在req.file或者req.files中显示。
         console.log(req.body, req.file);
+
         console.log('-------------file----------------------');
+
         //添加错误处理
         if (err) {
             return  console.log(err);
-        }
-        if(req.file){
+        }else{
             res.render('upload',{title:'文件上传',tip:'上传成功'});
         }
-        //文件信息在req.file或者req.files中显示。
 
     });
 
