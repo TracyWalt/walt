@@ -44,7 +44,7 @@
 										</td>
 										<td class="hidden-phone"><%= name.author %></td>
 										<td><%= name.time %></td>
-										<td><a href="/admin/article/add?id=<%= name._id %>" class="btn mini green"><i class="icon-edit"></i> Edit</a></td>
+										<td><a data-id="<%= name._id %>" class="btn mini red delete-btn"><i class="icon-edit"></i> delete</a></td>
 									</tr>
 									<%})%>
 								<%}else{%>
@@ -63,6 +63,21 @@
 		
 	</div>
 	<!-- //container-->
+	<script>
+		$(function(){
+			//删除文章
+			$('.delete-btn').click(function(){
+				if(confirm('确认要删除该文章？')){
+					var id = $(this).attr('data-id');
+					$.post('/admin/article/delete',{id:id},function(data){
+						if(data.status==1){
+							location.reload();
+						}
+					});
+				}
+			});
 
+		});
+	</script>
 </body>
 </html>

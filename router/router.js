@@ -24,7 +24,7 @@ router.post('/admin/singin',adminController.singin); //登录校验
 router.get('/admin/article/list',adminController.articleList); //文章列表
 router.get('/admin/article/add',adminController.articleAddLink); //添加文章
 router.post('/admin/article/add',adminController.articleAdd);  //添加文章
-
+router.all('/admin/article/delete',adminController.delete);  //删除文章
 //文件上传
 router.get('/upload',uploadController.link);
 router.post('/upload',uploadController.upload);

@@ -110,3 +110,20 @@ exports.articleAdd = function(req,res){
         console.log('标题或内容不能为空');
     }
 }
+
+//删除文章
+exports.delete = function(req,res){
+    var id = req.body.id;
+
+    if(!id){
+        res.send({"status":"参数不正确"});
+    }else{
+        Article.remove({_id:id},function(err,docs){
+            if(!err){
+                res.send({"status":"1"});
+            }else{
+                res.send({"status":"0"});
+            }
+        });
+    }
+}
