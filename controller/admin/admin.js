@@ -70,6 +70,9 @@ exports.singin = function(req,res){
 
 //文章列表
 exports.articleList = function(req,res){
+    if(!req.session.admin){  //如果没有登录
+        return res.redirect('/admin/login');
+    }
     //查询文章列表
     Article.find({},function(err,docs){
         //console.log(docs);
@@ -84,11 +87,17 @@ exports.articleList = function(req,res){
 
 //添加文章跳转
 exports.articleAddLink = function(req,res){
+    if(!req.session.admin){  //如果没有登录
+        return res.redirect('/admin/login');
+    }
     res.render('admin/article/add',{admin:req.session.admin,title:'新增文章'});
 }
 
 //添加文章
 exports.articleAdd = function(req,res){
+    if(!req.session.admin){  //如果没有登录
+        return res.redirect('/admin/login');
+    }
     var title = req.body.title;
     var content = req.body.content;
     var author = req.session.admin;
@@ -127,3 +136,4 @@ exports.delete = function(req,res){
         });
     }
 }
+
