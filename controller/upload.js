@@ -45,7 +45,7 @@ exports.upload = function(req,res){
 
         //添加错误处理
         if (err) {
-            return  console.log(err);
+            return console.log(err);
         }else{
             res.render('upload',{title:'文件上传',tip:'上传成功'});
         }

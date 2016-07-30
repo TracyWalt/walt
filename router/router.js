@@ -18,8 +18,12 @@ router.get('/article',articleController.article);
 //admin router
 router.get('/admin',adminController.index); //后台管理首页
 router.get('/admin/login',adminController.login); //登录页
+router.get('/admin/logout',adminController.logout); //注销
 router.post('/admin/singin',adminController.singin); //登录校验
-router.post('/admin/add',adminController.add);  //添加文章
+
+router.get('/admin/article/list',adminController.articleList); //文章列表
+router.get('/admin/article/add',adminController.articleAddLink); //添加文章
+router.post('/admin/article/add',adminController.articleAdd);  //添加文章
 
 //文件上传
 router.get('/upload',uploadController.link);

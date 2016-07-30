@@ -4,6 +4,7 @@
  */
 var Admin = require('../../models/admin/admin');  //用户数据模型
 var Article = require('../../models/article');  //文章数据模型
+
 //后台管理登录页
 exports.login = function(req,res){
     res.render('admin/login',{});
@@ -12,10 +13,16 @@ exports.login = function(req,res){
 //后台管理首页
 exports.index = function(req,res){
     if(req.session.admin){  //如果已经登录
-        res.render('admin/index',{});
+        res.render('admin/index',{admin:req.session.admin,title:'后台管理'});
     }else{
         res.redirect('/admin/login');
     }
+}
+
+//注销
+exports.logout = function(req,res){
+    req.session.admin = '';
+    res.redirect('/admin/login');
 }
 
 //处理后台管理登录
@@ -61,19 +68,42 @@ exports.singin = function(req,res){
     }
 }
 
+//文章列表
+exports.articleList = function(req,res){
+    //查询文章列表
+    Article.find({},function(err,docs){
+        //console.log(docs);
+        if(!err){
+            res.render('admin/article/list',{admin:req.session.admin,title:'文章列表',article:docs});
+        }else{
+            console.log('查询文章列表失败');
+        }
+    });
+
+}
+
+//添加文章跳转
+exports.articleAddLink = function(req,res){
+    res.render('admin/article/add',{admin:req.session.admin,title:'新增文章'});
+}
+
 //添加文章
-exports.add = function(req,res){
+exports.articleAdd = function(req,res){
     var title = req.body.title;
     var content = req.body.content;
+    var author = req.session.admin;
+    var nowDate = new Date();
+    //var time = nowDate.toLocaleDateString() + " "+ nowDate.toLocaleTimeString();
+    var time = nowDate.toLocaleDateString();
     if(title && content){
-        var articleData = {title:title,content:content};
+        var articleData = {title:title,content:content,author:author,time:time};
         var article = new Article(articleData);
         article.save(function(err){
             if(err){
                 console.log('添加文章失败');
             }else{
                 console.log('添加文章成功');
-                res.redirect('/admin');
+                res.redirect('/admin/article/add');
             }
         });
     }else{

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<% include ../libs/meta.html %>
+</head>
+
+<body class="page-header-fixed">
+
+	<!-- hearder -->
+	<% include ../libs/head.html %>
+	<!-- // header -->
+
+	<!-- container -->
+	<div class="page-container">
+	
+		<!-- sidebar -->
+		<% include ../libs/sidebar.html %>
+		<!-- //sidebar -->
+
+		<!-- content-->
+		<div class="page-content">
+			<div class="container-fluid">
+				<!-- path -->
+				<% include ../libs/path.html %>
+				<!-- //path -->
+				<!-- //con -->
+				<div class="row-fluid margin-bottom-20">
+					<div class="span12">
+
+						<div class="tab-pane active">
+							<form action="/admin/article/add" class="form-horizontal" method="post">
+								<div class="control-group">
+									<label class="control-label">文章标题:</label>
+									<div class="controls">
+										<input type="text" placeholder="请输入文章标题" name="title" class="m-wrap large">
+									</div>
+								</div>
+
+								<div class="control-group">
+									<label class="control-label">文章内容:</label>
+									<div class="controls">
+										<textarea class="large m-wrap" placeholder="请输入文章内容" name="content" rows="3"></textarea>
+									</div>
+								</div>
+
+								<div class="form-actions">
+									<button type="submit" class="btn blue"><i class="icon-ok"></i>新增文章</button>
+								</div>
+
+							</form>
+						</div>
+
+					</div>
+				</div>			
+				<!-- //con -->
+			</div>
+		</div>
+		<!-- //content-->
+		
+	</div>
+	<!-- //container-->
+
+</body>
+</html>

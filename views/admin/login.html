@@ -1,14 +1,55 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <title>admin-login</title>
+	<% include ./libs/meta.html %>
 </head>
-<body>
-    <form action="/admin/singin" method="post">
-        <input type="text" name="username" /><br>
-        <input type="password" name="password"><br>
-        <input type="submit" value="登录">
-    </form>
+
+<body class="login">
+
+	<!-- logo -->
+	<div class="logo">
+		<img src="/public/admin/image/logo-big.png" alt="" />
+	</div>
+	<!-- //logo -->
+
+	<!-- login-->
+	<div class="content">
+		<form class="form-vertical login-form" method="post" action="/admin/singin">
+		
+			<h3 class="form-title">Login to your account</h3>
+			
+			<div class="alert alert-error hide">
+				<button class="close" data-dismiss="alert"></button>
+				<span>Enter any username and password.</span>
+			</div>
+
+			<div class="control-group">
+				<label class="control-label visible-ie8 visible-ie9">Username</label>
+				<div class="controls">
+					<div class="input-icon left">
+						<i class="icon-user"></i>
+						<input class="m-wrap placeholder-no-fix" type="text" placeholder="Username" name="username"/>
+					</div>
+				</div>
+			</div>
+
+			<div class="control-group">
+				<label class="control-label visible-ie8 visible-ie9">Password</label>
+				<div class="controls">
+					<div class="input-icon left">
+						<i class="icon-lock"></i>
+						<input class="m-wrap placeholder-no-fix" type="password" placeholder="Password" name="password"/>
+					</div>
+				</div>
+			</div>
+
+			<button type="submit" class="btn green" style="width:100%;">
+				Login <i class="m-icon-swapright m-icon-white"></i>
+			</button>            
+		
+		</form>
+		
+	</div>
+	<!-- //login -->  
 </body>
 </html>
