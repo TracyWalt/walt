@@ -10,7 +10,7 @@ var session = require('express-session');   //session
 var bodyParser = require('body-parser');  //处理表单提交的数据
 var mongoose = require("mongoose"); //数据库操作
 var db = mongoose.connection;
-var path = require('path');
+var path = require('path'); 
 
 //设置模版路径和模版引擎
 app.set('views', './views');
